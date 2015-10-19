@@ -22,25 +22,10 @@ import java.util.List;
 public class IndexResource {
 
     private Logger log = LoggerFactory.getLogger(IndexResource.class);
-    /*
-    private final Cluster cassandra;
 
-    public IndexResource(Cluster cassandra) {
-        this.cassandra = cassandra;
-    }
-*/
     @GET
     @Timed
     public GeneralView index(@QueryParam("explain") Optional<String> explain) {
-        /*
-        Session session = cassandra.connect("tut");
-        ResultSet results = session.execute("SELECT firstname, lastname FROM users");
-        List<String> names =
-            StreamSupport
-            .stream(results.spliterator(), false)
-            .map(row -> row.getString("firstname") + " " + row.getString("lastname"))
-            .collect(Collectors.toList());
-*/
         List<String> names = Arrays.asList("name 1", "name 2");
         return new GeneralView("index.ftl", names);
     }
