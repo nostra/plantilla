@@ -5,8 +5,8 @@
     - vars/main.yml
     - vars/secret.yml
   tasks:
-#    - name: print secure variable
-#      debug: msg="my secure variable '{{ vault_plantilla_secret }}'"
+    - name: print secure variable
+      debug: msg="my secure variable '{{ vault_plantilla_secret }}'"
 
     - name: Creating plantilla user
       user: name=plantilla
