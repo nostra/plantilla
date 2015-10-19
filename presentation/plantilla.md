@@ -10,12 +10,13 @@
 
 # Agenda
 
-* Want to tell about best practices and experience, according to me.
+* To tell about best practices for setting up a project - according to me.
   Each tech item is really worthy of its own presentation, though...
 * Try to provide takeaway points
 * Go beyond the presentation of the application framework to focus on how you get your work into production
 * Strategies for setting up environments / routines
 * Provide a framework which (hopefully) can be used to get your app into production quickly
+    * Note that there are many moving parts, and something may need to be changed
 * Check this framework out with:
 
 ```
