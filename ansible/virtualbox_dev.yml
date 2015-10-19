@@ -1,0 +1,45 @@
+---
+# Install ubuntu virtual image, add your ssh key to the root user
+# and do: 
+#   ansible-playbook virtualbox_dev.yml
+- hosts: dev
+  remote_user: root
+  vars_files:
+    - vars/main.yml
+  roles:
+    - malk.java8-oracle
+    - tersmitten.pip  # https://github.com/Oefenweb/ansible-pip
+  tasks:
+    - name: Install docker-py as a workaround for Ansible pip issue
+      pip: name=docker-py version=1.2.3
+
+#    - name: Remove docker-compose, as it was feasible to get same version as server
+#      pip: name=docker-compose state=absent
+
+    - name: Install div ubunty dev tools
+      apt:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - git
+        - python-landslide
+        - ansible
+        - docker.io
+        - vim-syntax-docker
+        - chromium-browser
+        - ecryptfs-utils
+        - emacs24-nox
+        - yaml-mode
+        - emacs-goodies-el
+
+    - name: Uninstall cruft
+      apt:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - libreoffice
+        - libreoffice-gtk
+        - libreoffice-gnome
+
+#    - include: tasks/Ubuntu.yml
+

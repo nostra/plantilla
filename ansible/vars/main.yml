@@ -1,0 +1,31 @@
+---
+varnish_secret: "a0c28b4b-7f66-4a12-87ea-bd4bb7d5b3c8"
+varnish_listen_port: "80"
+varnish_use_default_vcl: false
+varnish_default_backend_host: "127.0.0.1"
+varnish_default_backend_port: "7999"
+varnish_config_path: /etc/varnish
+varnish_admin_listen_host: "127.0.0.1"
+varnish_admin_listen_port: "6082"
+varnish_storage: "file,/var/lib/varnish/varnish_storage.bin,256M"
+
+collectd_enabled: no               # Enable the role
+collectd_apt_state: absent
+# collectd_hostname: "{{ inventory_hostname }}"
+# collectd_hostname: "localhost"
+# collectd_plugins: []
+collectd_default_plugins: [cpu, df, interface, load, memory, swap, disk]
+collectd_default_plugins_options:
+  swap:
+  - ReportByDevice false
+  interface:
+  - Interface lo
+  - IgnoreSelected true
+collectd_types:
+  { cpu: "value:DERIVE:0:U" }
+
+collectd_write_graphite: yes
+collectd_write_graphite_options:
+  Host: 188.166.81.90
+  LogSendErrors: 'true'
+  Prefix: collectd.

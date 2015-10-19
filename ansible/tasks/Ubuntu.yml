@@ -1,0 +1,23 @@
+---
+- name: Ensure unzip is installed
+  apt:
+    name: unzip
+    update_cache: no
+    state: latest
+
+- name: Ensure bash is at the latest version
+  apt:
+    name: bash
+    update_cache: yes
+    force: yes
+    state: latest
+
+- name: Ensure OpenSSL and the SSL development libraries are at the latest versions
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    force: yes
+    state: latest
+  with_items:
+    - openssl
+    - libssl-dev

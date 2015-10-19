@@ -1,0 +1,14 @@
+---
+- hosts: plantilla
+  vars_files:
+    - vars/plantilla.yml
+  tasks:
+    - name: Output warning
+      debug:
+        msg: "WARNING: Now undeploying plantilla-'{{ plantilla_version }}'"
+
+    - name: Stop plantilla
+      service: name=plantilla state=stopped
+
+    - name: Delete installation
+      file: path=~plantilla/runtime/plantilla-{{plantilla_version}} state=absent

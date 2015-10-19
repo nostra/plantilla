@@ -1,0 +1,18 @@
+---
+- name: Create graphite data directory
+  file: path=/opt/docker/graphite state=directory mode=0755
+
+- name: Install docker-py as a workaround for Ansible issue
+  pip: name=docker-py version=1.2.3
+  
+- name: graphite
+  docker:
+    name: graphite
+    image: hopsoft/graphite-statsd
+    state: running
+    ports:
+      - 7999:80
+      - 2003:2003
+      - 8125:8125/udp
+    volumes: /opt/docker/graphite:/opt/graphite/storage/whisper
+    

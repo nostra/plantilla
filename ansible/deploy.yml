@@ -1,0 +1,50 @@
+---
+- hosts: plantilla
+  vars_files:
+    - vars/plantilla.yml
+    - vars/main.yml
+    - vars/secret.yml
+  tasks:
+#    - name: print secure variable
+#      debug: msg="my secure variable '{{ vault_plantilla_secret }}'"
+
+    - name: Creating plantilla user
+      user: name=plantilla
+            comment="plantilla application runner"
+            uid=8443
+            group=users
+            system=yes
+            home=/usr/local/plantilla
+
+    - name: Make diverse work directories plantilla needs for running and import
+      file: path=/usr/local/plantilla/{{item.path}} state=directory mode=0755 owner=plantilla group=users
+      with_items:
+        - { path: 'bin' }
+        - { path: 'runtime' }
+        - { path: 'releases' }
+
+
+    - name: plantilla init file
+      copy: src=plantilla_service.conf dest=/etc/init/plantilla.conf owner=plantilla group=users
+
+    - name: Synchronize plantilla application config
+      copy: src=dropwizard_production.yml dest=/usr/local/plantilla/dropwizard.yml owner=plantilla group=users
+      notify:
+      - Restart plantilla
+
+    - name: Unzip distribution
+      unarchive: copy=no
+                 src=/usr/local/plantilla/releases/no/scienta/plantilla/plantilla/{{plantilla_version}}/plantilla-{{plantilla_version}}.tar
+                 dest=/usr/local/plantilla/runtime/
+                 creates=plantilla-{{plantilla_version}}/bin/plantilla owner=plantilla
+      notify:
+      - Restart plantilla
+
+    - name: Update symlink to runtime
+      file: src=/usr/local/plantilla/runtime/plantilla-{{plantilla_version}} dest=/usr/local/plantilla/runtime/plantilla owner=plantilla group=users state=link
+      notify:
+      - Restart plantilla
+
+  handlers:
+    - name: Restart plantilla
+      service: name=plantilla state=restarted sleep=3

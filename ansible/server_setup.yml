@@ -1,0 +1,26 @@
+---
+- hosts: plantilla
+  vars_files:
+    - vars/main.yml
+  roles:
+    - { role: malk.java8-oracle,master }
+    - { role: geerlingguy.varnish,1.3.0 }
+    - { role: tersmitten.pip,v1.2.0}  # https://github.com/Oefenweb/ansible-pip
+    # New format: tersmitten.pip,v1.0.0
+  tasks:
+    - name: Copy varnish config
+      copy: src=varnish.vcl dest=/etc/varnish/default.vcl
+      notify:
+      - Restart varnish
+
+    - name: Install docker-py as a workaround for Ansible pip issue
+      pip: name=docker-py version=1.2.3
+
+    - include: tasks/graphite.yml
+    - include: tasks/grafana.yml
+#    - include: tasks/upgrade.yml
+
+
+  handlers:
+    - name: Restart varnish
+      service: name=varnish state=restarted

@@ -1,0 +1,78 @@
+body {
+  background: #000;
+}
+
+div.slide {
+  background-color: #fff;
+}
+
+li {
+  padding: 5px;
+  font-size: 20px;
+}
+
+aside {
+  display: normal;
+}
+
+/*aside.source {
+  display: none;
+}
+aside.page_number {
+  display: inline;
+}
+*/
+aside.logo {
+  display: inline;
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+}
+
+/* render a nice scrollbar in overflowed pre area's */
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: -webkit-gradient(linear, left bottom, left top, from(green), to(#302db7));
+  -webkit-border-radius: 1ex;
+}
+::-webkit-scrollbar-corner {
+  background: blue;
+}
+
+div.slide {
+  display: inline;
+  position: absolute;
+  overflow: hidden;
+  width: 900px;
+  height: 700px;
+  margin-top: -350px;
+  margin-left: -400px;
+  left: 50%;
+  top: 50%;
+  background: -webkit-gradient(linear, 0%, 0%, 20%, 100%, from(#302db7), to(#fff));
+  background-color: #fff;
+  background: -moz-linear-gradient(bottom, #302db7, #fff);
+  -webkit-transition: margin 0.25s ease-in-out;
+  -moz-transition: margin 0.25s ease-in-out;
+  -o-transition: margin 0.25s ease-in-out;
+  border-top-left-radius: 20px;
+  -moz-border-radius-topleft: 20px;
+  -webkit-border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  -moz-border-radius-topright: 20px;
+  -webkit-border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  -moz-border-radius-bottomright: 20px;
+  -webkit-border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  -moz-border-radius-bottomleft: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+}
+
+body.presenter_view div#current_presenter_notes section {
+  height: inherit;
+}
