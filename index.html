@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Plantilla<br/> project setup and tooling</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+      
+      <link rel="stylesheet" href="scienta_theme/css/scienta.css">
+      
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+      
+      <script type="text/javascript" src="scienta_theme/js/scienta.js"></script>
+      
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Plantilla<br/> project setup and tooling</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_notes">
+          <div class="inner">
+            
+            <header><h1>Agenda</h1></header>
+            
+            
+            <section><ul>
+<li>Want to tell about best practices and experience, according to me.
+  Each tech item is really worthy of its own presentation, though...</li>
+<li>Try to provide takeaway points</li>
+<li>Go beyond the presentation of the application framework to focus on how you get your work into production</li>
+<li>Strategies for setting up environments / routines</li>
+<li>Provide a framework which (hopefully) can be used to get your app into production quickly</li>
+<li>Check this framework out with:</li>
+</ul>
+<p><code>git clone git@github.com:nostra/plantilla.git</code></p>
+<p class="notes">  Presenter notes present</p>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <p>presenter notes</p>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Items</h1></header>
+            
+            
+            <section><ul>
+<li>set up github bitbucket account</li>
+<li>gradle and project setup</li>
+<li>dropwizard</li>
+<li>sonarqube
+<!-- * jenkins --></li>
+<li>docker + graphite + grafana ++</li>
+<li>package or fat jar</li>
+<li>deployment in the cloud (here: digital ocean)</li>
+<li>ansible</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Git</h1></header>
+            
+            
+            <section><ul>
+<li>No reason to keep subversion, nor CVS (the horror)</li>
+<li>Annoying if someone fills up the repository with binary files, though</li>
+<li><a href="http://www.github.com/" target="win">github</a></li>
+<li><a href="https://www.bitbucket.com/" target="win">bitbucket</a></li>
+<li><a href="https://about.gitlab.com/" target="win">gitlab</a></li>
+<li>Undoubtedly other providers</li>
+<li>Providers differ in work flow and management tools</li>
+<li>Possible to live dangerously with git-svn. Tip: You need a good plan and failure-proof routines</li>
+<li>Bake your own:</li>
+</ul>
+<pre>
+# Creating directory in which the git projects shall reside
+mkdir -p /opt/git/static/presentations.git
+# The base directory is sticky, so the group is OK - but without rights
+chmod -R g+w /opt/git/static
+cd /opt/git/static/presentations.git
+# Initialize directory
+git init --bare --shared
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Gradle</h1></header>
+            
+            
+            <section><ul>
+<li>Quicker than maven</li>
+<li>Somewhat less obtuse</li>
+<li>Android studio uses gradle</li>
+<li>Topic for later: <a href="https://docs.gradle.org/current/userguide/organizing_build_logic.html"
+  target="win">Separating out common configuration</a></li>
+<li>Maven-like profiles supported as
+  <a href="https://gradle.org/feature-spotlight-gradles-support-maven-pom-profiles/" target="win">programmed functionality</a></li>
+<li><code>$HOME/.gradle/gradle.properties</code> for defaults, most often <code>org.gradle.daemon=true</code></li>
+<li><code>gradle --continuous build</code></li>
+<li>Missing <code>mvn dependency:tree</code> and similar. May come in later versions</li>
+<li>Remember to add gradle wrapper to <code>.gitignore</code></li>
+<li>... but need wrapper, as in <code>./gradlew wrapper</code> (in order to get 2.8-rc1 or greater)</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Gradle and the release process</h1></header>
+            
+            
+            <section><ul>
+<li>Releasing is:<ul>
+<li>Update the version (from snapshot to release version)</li>
+<li>Tag your repository with <a href="http://semver.org" target="win">a semver version</a></li>
+<li>Build</li>
+<li>Upload to remote repository</li>
+<li>Update the version to the next snapshot</li>
+</ul>
+</li>
+<li>You only put released versions into production</li>
+<li>Maven has a rather good release plugin</li>
+<li>The release part of gradle has been particularly painful to get to work<ul>
+<li><strong>Finally</strong> managed to make a setup which works OK with remote ssh repository</li>
+<li>Supported by release candidate, gradle-2.8-rc1</li>
+</ul>
+</li>
+<li>(Demo of release will be shown in later slide)</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>DropWizard</h1></header>
+            
+            
+            <section><ul>
+<li>Best practices organized:<ul>
+<li>Jetty, Jackson, Jersey, Metrics, ...</li>
+</ul>
+</li>
+<li>Does not like:<ul>
+<li>Springframework</li>
+<li>More than one configuration file</li>
+<li>To roll your logs sensibly</li>
+</ul>
+</li>
+<li>Might be a challenge to use if porting legacy code</li>
+<li>Alternatives:<ul>
+<li><a href="http://projects.spring.io/spring-boot/" target="win">Spring boot</a></li>
+<li><a href="http://sparkjava.com/" target="win">sparkjava</a></li>
+</ul>
+</li>
+<li>Quirky when developing for web due to reload-issues<ul>
+<li>Practice your shortcut skills</li>
+</ul>
+</li>
+<li>Freemarker is easily included, though</li>
+<li>Easy to create docker image</li>
+</ul>
+<!--
+# Java-8
+* Makes Java fun again
+--></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>The demo project</h1></header>
+            
+            
+            <section><ul>
+<li>(Does <a href="http://localhost:8080" target="win">not really do anything</a> useful...)</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Docker</h1></header>
+            
+            
+            <section><ul>
+<li>Containers rock. Mostly.</li>
+<li>Except during restart</li>
+<li>Except when you have both ip4 and ip6</li>
+<li>Except when you have several of them that need to talk to each other<ul>
+<li>Need government (such as kubernetes)</li>
+</ul>
+</li>
+<li>Painful when images go haywire</li>
+<li>(Examples of setup to follow)</li>
+<li>Strategies for storage backup<ul>
+<li>Mount local directory</li>
+<li>Use data image</li>
+</ul>
+</li>
+<li>There exist <a href="https://hub.docker.com/" target="win">oodles of images</a></li>
+<li>In production: <strong>Always</strong> <code>sudo docker</code>, because you can
+  <a href="https://github.com/chrisfosterelli/dockerrootplease" target="win">obtain root</a> from a docker group</li>
+<li>Nice to get technologies you want to examine quickly set up</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Sonarqube</h1></header>
+            
+            
+            <section><ul>
+<li><a href="http://sonarqube.org/" target="win">sonarqube.org</a> measures
+your build quality, but is a hassle to maintain manually</li>
+<li>docker-compose to the rescue:</li>
+</ul>
+<p><code>git clone git://github.com/harbur/docker-sonarqube.git
+cd docker-sonarqube
+docker-compose up</code></p>
+<ul>
+<li>In your project (which contains the correct setup): <code>./gradlew sonarqube</code></li>
+<li>Watch output on <a href="http://localhost:9000/" target="win">http://localhost:9000/</a></li>
+<li>You want to have your config files stored separately for later import</li>
+</ul>
+<!--
+
+-----
+
+# Sonarqube as plain docker commands
+
+sudo docker run -d --name sonarqube -p 9000:9000 harbur/sonarqube:latest
+
+```
+sudo docker run -d --name postgresql -p 5432:5432 \
+-e POSTGRESQL_USER=sonar  \
+-e POSTGRESQL_PASS=xaexohquaetiesoo \
+-e POSTGRESQL_DB=sonar  \
+       orchardup/postgresql:latest
+
+sudo docker run -d --name sonarqube -p 9000:9000 \
+--link postgresql:postgresql \
+-e DB_USER=sonar \
+-e DB_PASS=xaexohquaetiesoo \
+-e DB_NAME=sonar \
+       harbur/sonarqube:latest
+```
+--></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Graphite + grafana</h1></header>
+            
+            
+            <section><ul>
+<li>Least effort setup for (local) metrics</li>
+</ul>
+<pre>
+sudo docker run -d --name graphite -p 80:80 -p 2003:2003 \
+       -p 8125:8125/udp hopsoft/graphite-statsd
+sudo docker run -d --name grafana -p 3000:3000 \
+       -e "GF_SECURITY_ADMIN_PASSWORD=secret" grafana/grafana
+sudo docker inspect -f '{{ .NetworkSettings.IPAddress }}' graphite
+</pre>
+
+<ul>
+<li>Links:<ul>
+<li><a href="http://localhost:80" target="win">Graphite</a></li>
+<li><a href="http://localhost:3000" target="win">Grafana</a> (password <i>secret</i>)</li>
+</ul>
+</li>
+<li>Would need to invest time to get the setup streamlined</li>
+<li>Add test element with:
+<pre>
+echo -n "test.demo.hepp 1 <code>date +%s</code>" | nc -w 1 -u localhost 2003
+</pre></li>
+</ul>
+<!--
+# jenkins
+
+* Continuous build
+* https://guides.codepath.com/android/Building-Gradle-Projects-with-Jenkins-CI
+--></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Digital Ocean</h1></header>
+            
+            
+            <section><ul>
+<li>Many places to put cloud applications - Digital Ocean was chosen due to static IP</li>
+<li><a href="https://www.digitalocean.com" target="win">https://www.digitalocean.com</a></li>
+<li>(demo setting up project)</li>
+<li>ssh setup:</li>
+</ul>
+<pre>
+Host plantilla  188.166.22.170
+    HostName 188.166.22.170
+    IdentityFile ~/.ssh/digitalocean
+    User root
+</pre>
+
+<ul>
+<li>You should be able to ssh into the image: <code>ssh plantilla</code></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Finishing touches on image</h1></header>
+            
+            
+            <section><ul>
+<li>Note that plantilla runs on Ubuntu 14.04.3 LTS, which has the code
+  name <em>Trusty Tahr</em>.</li>
+<li>Manually set up FW (could have been done with ansible)</li>
+</ul>
+<pre>
+ufw allow ssh
+ufw allow 80/tcp
+ufw show added
+ufw enable
+ufw status
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Ansible</h1></header>
+            
+            
+            <section><ul>
+<li>You want to be able to have a VM configuration which is reproducible</li>
+<li>A tool similar to puppet, chef, salt and others</li>
+<li>Agent-less, which means you don't have to run it on the server</li>
+<li>(But you can run it on a server, though, for pull-style update)</li>
+<li>Easy to test changes in configuration, as you can just choose a sub-file</li>
+<li>sudo emacs -nw /etc/ansible/hosts (or where determined by <code>ANSIBLE_HOSTS</code>)</li>
+<li>You can, of course, use ansible to control the dev setup on your machine too</li>
+</ul>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul>
+<li>Ansible and security</li>
+<li>http://docs.ansible.com/ansible/playbooks_best_practices.html</li>
+<li>Puppet needs an agent. This is a SPOF</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Ansible galaxy</h1></header>
+            
+            
+            <section><ul>
+<li>Get configurations for non-default elements from
+  <a href="https://galaxy.ansible.com/" target="win">Ansible Galaxy</a></li>
+<li>Playbooks are distribution dependent, which is why we remember Ubuntu Trusty Tahr</li>
+<li>Install element with:</li>
+</ul>
+<pre>
+sudo ansible-galaxy install malk.java8-oracle
+sudo ansible-galaxy install geerlingguy.varnish
+sudo ansible-galaxy install tersmitten.pip
+</pre>
+
+<ul>
+<li>(Demo: Ansible server setup files)</li>
+<li><code>ansible-playbook --vault-password-file=~/.vault_password server_setup.yml</code></li>
+<li><code>ansible-vault --vault-password-file=~/.vault_password edit vars/secret.yml</code></li>
+</ul>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <p>Including reference to vault-pw file makes sure you don't forget it when you
+need it.
+Secrets are used to avoid checking passwords and similar into git</p>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Release and deploy</h1></header>
+            
+            
+            <section><ul>
+<li>(Note: Egg and chicken problem with current deployment setup)</li>
+<li>creating a fat jar</li>
+<li>gradle hate:<ul>
+<li>First create wrapper: <code>gradle wrapper</code> (needed as 2.7 does not support release)</li>
+<li>Then do release: <code>./gradlew release</code></li>
+<li>(or just deploy snapshot: <code>./gradlew afterReleaseBuild</code>, but then you need to hack the deployment setup)</li>
+<li>Update ansible/vars/plantilla_version as applicable</li>
+<li>Sigh: Both tar and zip archives were transferred</li>
+</ul>
+</li>
+<li>In a real project, the release process needs to be scripted as a single (shell) command    </li>
+<li>deployment on digital ocean<ul>
+<li><code>ansible-playbook --vault-password-file=~/.vault_password deploy.yml</code></li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Recap</h1></header>
+            
+            
+            <section><ul>
+<li>Standardize setup</li>
+<li>What cannot be done in a terminal is not worth doing: <b>Script everything</b></li>
+<li>Think ahead</li>
+</ul>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <p>No comment</p>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Questions?<!--img src="images/amedia_questions.jpg" width="800" align="center" style="float: top;" /--></h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/18
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Plantilla<br/> project setup and tooling</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Agenda</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">Items</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">Git</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Gradle</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">Gradle and the release process</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">DropWizard</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">The demo project</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Docker</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Sonarqube</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Graphite + grafana</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Digital Ocean</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">Finishing touches on image</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">Ansible</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Ansible galaxy</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-16">
+        <th><a href="#slide16">Release and deploy</a></th>
+        <td><a href="#slide16">16</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-17">
+        <th><a href="#slide17">Recap</a></th>
+        <td><a href="#slide17">17</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-18">
+        <th><a href="#slide18">Questions?<!--img src="images/amedia_questions.jpg" width="800" align="center" style="float: top;" /--></a></th>
+        <td><a href="#slide18">18</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>
