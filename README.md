@@ -2,6 +2,8 @@
 
 A template for application development.
 
+See the slides presenting the template here: https://nostra.github.io/plantilla/
+
 Contains:
 
 * A DropWizard application
