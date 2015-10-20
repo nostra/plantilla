@@ -159,11 +159,11 @@ git init --bare --shared
 your build quality, but is a hassle to maintain manually
 * docker-compose to the rescue:
 
-```
+<pre>
 git clone git://github.com/harbur/docker-sonarqube.git
 cd docker-sonarqube
 docker-compose up
-```
+</pre>
 
 * In your project (which contains the correct setup): `./gradlew sonarqube`
 * Watch output on <a href="http://localhost:9000/" target="win">http://localhost:9000/</a>
