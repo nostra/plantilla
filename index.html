@@ -28,8 +28,8 @@
     <title>Plantilla<br/> project setup and tooling</title>
     <!-- Styles -->
     
-    <link rel="stylesheet" media="print" href="theme/css/print.css">
-    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    <link rel="stylesheet" media="print" href="scienta_theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="scienta_theme/css/screen.css">
     
     
       
@@ -39,7 +39,7 @@
     <!-- /Styles -->
     <!-- Javascripts -->
     
-    <script type="text/javascript" src="theme/js/slides.js"></script>
+    <script type="text/javascript" src="scienta_theme/js/slides.js"></script>
     
     
       
@@ -108,8 +108,7 @@
 <li>Check this framework out with:</li>
 </ul>
 <p><code>git clone git@github.com:nostra/plantilla.git</code></p>
-<p class="notes">  Presenter notes present</p>
-</section>
+<p class="notes">  Presenter notes present</p></section>
             
           </div>
           <div class="presenter_notes">
@@ -487,9 +486,12 @@ git init --bare --shared
 your build quality, but is a hassle to maintain manually</li>
 <li>docker-compose to the rescue:</li>
 </ul>
-<p><code>git clone git://github.com/harbur/docker-sonarqube.git
+<pre>
+git clone git://github.com/harbur/docker-sonarqube.git
 cd docker-sonarqube
-docker-compose up</code></p>
+docker-compose up
+</pre>
+
 <ul>
 <li>In your project (which contains the correct setup): <code>./gradlew sonarqube</code></li>
 <li>Watch output on <a href="http://localhost:9000/" target="win">http://localhost:9000/</a></li>
@@ -711,8 +713,7 @@ ufw status
 <li>Easy to test changes in configuration, as you can just choose a sub-file</li>
 <li>sudo emacs -nw /etc/ansible/hosts (or where determined by <code>ANSIBLE_HOSTS</code>)</li>
 <li>You can, of course, use ansible to control the dev setup on your machine too</li>
-</ul>
-</section>
+</ul></section>
             
           </div>
           <div class="presenter_notes">
@@ -767,8 +768,7 @@ sudo ansible-galaxy install tersmitten.pip
 <li>(Demo: Ansible server setup files)</li>
 <li><code>ansible-playbook --vault-password-file=~/.vault_password server_setup.yml</code></li>
 <li><code>ansible-vault --vault-password-file=~/.vault_password edit vars/secret.yml</code></li>
-</ul>
-</section>
+</ul></section>
             
           </div>
           <div class="presenter_notes">
@@ -858,8 +858,7 @@ Secrets are used to avoid checking passwords and similar into git</p>
 <li>Standardize setup</li>
 <li>What cannot be done in a terminal is not worth doing: <b>Script everything</b></li>
 <li>Think ahead</li>
-</ul>
-</section>
+</ul></section>
             
           </div>
           <div class="presenter_notes">
