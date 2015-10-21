@@ -79,7 +79,7 @@ dependencies {
     compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.12'
     testCompile 'junit:junit:4.12'
     testCompile 'io.dropwizard:dropwizard-testing:' + dropwizardVersion
-    deployerJars "org.apache.maven.wagon:wagon-ssh-external:2.2"
+    deployerJars "org.apache.maven.wagon:wagon-ssh-external:2.10"
 }
 
 shadowJar {
@@ -96,7 +96,7 @@ jar {
 
 task wrapper(type: Wrapper) {
     // Gradle version 2.7 and below bombs on release
-    gradleVersion = '2.8-rc-1'
+    gradleVersion = '2.8'
 }
 
 // Release related
