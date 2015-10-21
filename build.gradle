@@ -97,6 +97,10 @@ jar {
 task wrapper(type: Wrapper) {
     // Gradle version 2.7 and below bombs on release
     gradleVersion = '2.8'
+    if ( !gradle.gradleVersion.equals(gradleVersion) ) {
+        throw new GradleException("Insisting on using wrapper which has version "+gradleVersion+
+                " and not version from command line: "+gradle.gradleVersion)
+    }
 }
 
 // Release related
