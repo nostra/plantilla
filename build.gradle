@@ -115,10 +115,10 @@ afterReleaseBuild.dependsOn uploadArchives
 uploadArchives {
     repositories.mavenDeployer {
         configuration = configurations.deployerJars
-        // TODO Set username dynamic with ${user.name}
         // plantilla resolves due to configuration in: .ssh/config
         repository(url: "scpexe://plantilla:/usr/local/plantilla/releases") {
-            authentication(userName: "root", privateKey: "/home/en/.ssh/digitalocean")
+            authentication(userName: "root",
+                    privateKey: System.getProperty("user.home")+"/.ssh/digitalocean")
         }
     }
 }
