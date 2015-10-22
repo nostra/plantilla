@@ -9,8 +9,9 @@ logging:
     freemarker: INFO
     no.scienta.plantilla: DEBUG
   appenders:
+  # Use a file appender for a real application
     - type: console
-      logFormat: '%d [%-5p] %highlight(%-5level) %cyan(%logger{15}) %white(%X{app})[%M][%L] - %m%n'
+      logFormat: '%d [%-5p] [%10.10t][%X{app}][%c][%M][%L] - %m%n'
 
 server:
   gzip:
@@ -21,8 +22,3 @@ server:
   adminConnectors:
     - type: http
       port: 18080
-
-# See https://github.com/stuartgunter/dropwizard-cassandra/tree/master/src/test/resources
-#cassandra:
-#  clusterName: "tut"
-#  contactPoints: ["localhost", "172.17.0.2", "172.17.0.3", "172.17.0.4"]

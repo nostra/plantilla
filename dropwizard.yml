@@ -21,8 +21,3 @@ server:
   adminConnectors:
     - type: http
       port: 18080
-
-# See https://github.com/stuartgunter/dropwizard-cassandra/tree/master/src/test/resources
-#cassandra:
-#  clusterName: "tut"
-#  contactPoints: ["localhost", "172.17.0.2", "172.17.0.3", "172.17.0.4"]
