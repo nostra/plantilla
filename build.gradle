@@ -97,9 +97,11 @@ jar {
 task wrapper(type: Wrapper) {
     // Gradle version 2.7 and below bombs on release
     gradleVersion = '2.8'
-    if ( !gradle.gradleVersion.equals(gradleVersion) ) {
-        throw new GradleException("Insisting on using wrapper which has version "+gradleVersion+
-                " and not version from command line: "+gradle.gradleVersion)
+    if (System.getProperty("doInit", "false").equals("false") && !gradle.gradleVersion.equals(gradleVersion)) {
+        throw new GradleException("Insisting on using wrapper which has version " + gradleVersion +
+                " and not version from command line: " + gradle.gradleVersion +
+                "\nIf you want to perform wrapper initialization, add -DdoInit=true to your argument. Example: \n" +
+                "    gradle -DdoInit=true wrapper")
     }
 }
 
