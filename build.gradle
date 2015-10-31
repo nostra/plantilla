@@ -124,6 +124,22 @@ uploadArchives {
 }
 // /Release related
 
+// Task to translate gradle file to maven:
+task writeNewPom << {
+    pom {
+        project {
+            inceptionYear '2008'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }.writeTo("$buildDir/newpom.xml")
+}
+
 // Failing to get an actual report with this and git://github.com/harbur/docker-sonarqube.git
 sonarqube{
     properties {
