@@ -220,6 +220,17 @@ sudo docker inspect -f '{{ .NetworkSettings.IPAddress }}' graphite
 echo -n "test.demo.hepp 1 `date +%s`" | nc -w 1 -u localhost 2003
 </pre>
 
+-----
+
+# Plantilla in docker
+
+* See Dockerfile for details
+* Build and run with:
+<pre>
+docker build -t plantilla .
+docker run --rm -p 8080:8080 --name plantilla plantilla
+<pre>
+
 
 <!--
 # jenkins
