@@ -133,6 +133,11 @@ git init --bare --shared
 
 * (Does <a href="http://localhost:8080" target="win">not really do anything</a> useful...)
 
+* Run with one of:
+    * `./gradlew run`
+    * `./gradlew shadowJar ; java -jar build/libs/plantilla-*-all.jar`
+    * or just start the main method from your IDE
+
 -----
 
 # Docker
