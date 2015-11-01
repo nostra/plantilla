@@ -28,8 +28,8 @@
     <title>Plantilla<br/> project setup and tooling</title>
     <!-- Styles -->
     
-    <link rel="stylesheet" media="print" href="scienta_theme/css/print.css">
-    <link rel="stylesheet" media="screen, projection" href="scienta_theme/css/screen.css">
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
     
     
       
@@ -39,7 +39,7 @@
     <!-- /Styles -->
     <!-- Javascripts -->
     
-    <script type="text/javascript" src="scienta_theme/js/slides.js"></script>
+    <script type="text/javascript" src="theme/js/slides.js"></script>
     
     
       
@@ -78,7 +78,7 @@
             </aside>
             
             <aside class="page_number">
-              1/18
+              1/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -108,7 +108,8 @@
 <li>Check this framework out with:</li>
 </ul>
 <p><code>git clone git@github.com:nostra/plantilla.git</code></p>
-<p class="notes">  Presenter notes present</p></section>
+<p class="notes">  Presenter notes present</p>
+</section>
             
           </div>
           <div class="presenter_notes">
@@ -126,7 +127,7 @@
             </aside>
             
             <aside class="page_number">
-              2/18
+              2/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -169,7 +170,7 @@
             </aside>
             
             <aside class="page_number">
-              3/18
+              3/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -221,7 +222,7 @@ git init --bare --shared
             </aside>
             
             <aside class="page_number">
-              4/18
+              4/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -267,7 +268,7 @@ git init --bare --shared
             </aside>
             
             <aside class="page_number">
-              5/18
+              5/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -317,7 +318,7 @@ git init --bare --shared
             </aside>
             
             <aside class="page_number">
-              6/18
+              6/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -377,7 +378,7 @@ git init --bare --shared
             </aside>
             
             <aside class="page_number">
-              7/18
+              7/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -395,7 +396,17 @@ git init --bare --shared
             
             
             <section><ul>
-<li>(Does <a href="http://localhost:8080" target="win">not really do anything</a> useful...)</li>
+<li>
+<p>(Does <a href="http://localhost:8080" target="win">not really do anything</a> useful...)</p>
+</li>
+<li>
+<p>Run with one of:</p>
+<ul>
+<li><code>./gradlew run</code></li>
+<li><code>./gradlew shadowJar ; java -jar build/libs/plantilla-*-all.jar</code></li>
+<li>or just start the main method from your IDE</li>
+</ul>
+</li>
 </ul></section>
             
           </div>
@@ -412,7 +423,7 @@ git init --bare --shared
             </aside>
             
             <aside class="page_number">
-              8/18
+              8/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -464,7 +475,7 @@ git init --bare --shared
             </aside>
             
             <aside class="page_number">
-              9/18
+              9/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -535,7 +546,7 @@ sudo docker run -d --name sonarqube -p 9000:9000 \
             </aside>
             
             <aside class="page_number">
-              10/18
+              10/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -574,6 +585,46 @@ sudo docker inspect -f '{{ .NetworkSettings.IPAddress }}' graphite
 <pre>
 echo -n "test.demo.hepp 1 <code>date +%s</code>" | nc -w 1 -u localhost 2003
 </pre></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="plantilla.md">plantilla.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/19
+            </aside>
+            <aside class="logo">
+              <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: plantilla.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Plantilla in docker</h1></header>
+            
+            
+            <section><ul>
+<li>See Dockerfile for details</li>
+<li>Build and run with:
+<pre>
+docker build -t plantilla .
+docker run --rm -p 8080:8080 --name plantilla plantilla
+<pre></li>
 </ul>
 <!--
 # jenkins
@@ -596,7 +647,7 @@ echo -n "test.demo.hepp 1 <code>date +%s</code>" | nc -w 1 -u localhost 2003
             </aside>
             
             <aside class="page_number">
-              11/18
+              12/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -644,7 +695,7 @@ Host plantilla  188.166.22.170
             </aside>
             
             <aside class="page_number">
-              12/18
+              13/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -688,7 +739,7 @@ ufw status
             </aside>
             
             <aside class="page_number">
-              13/18
+              14/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -713,7 +764,8 @@ ufw status
 <li>Easy to test changes in configuration, as you can just choose a sub-file</li>
 <li>sudo emacs -nw /etc/ansible/hosts (or where determined by <code>ANSIBLE_HOSTS</code>)</li>
 <li>You can, of course, use ansible to control the dev setup on your machine too</li>
-</ul></section>
+</ul>
+</section>
             
           </div>
           <div class="presenter_notes">
@@ -735,7 +787,7 @@ ufw status
             </aside>
             
             <aside class="page_number">
-              14/18
+              15/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -768,7 +820,8 @@ sudo ansible-galaxy install tersmitten.pip
 <li>(Demo: Ansible server setup files)</li>
 <li><code>ansible-playbook --vault-password-file=~/.vault_password server_setup.yml</code></li>
 <li><code>ansible-vault --vault-password-file=~/.vault_password edit vars/secret.yml</code></li>
-</ul></section>
+</ul>
+</section>
             
           </div>
           <div class="presenter_notes">
@@ -788,7 +841,7 @@ Secrets are used to avoid checking passwords and similar into git</p>
             </aside>
             
             <aside class="page_number">
-              15/18
+              16/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -837,7 +890,7 @@ Secrets are used to avoid checking passwords and similar into git</p>
             </aside>
             
             <aside class="page_number">
-              16/18
+              17/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -858,7 +911,8 @@ Secrets are used to avoid checking passwords and similar into git</p>
 <li>Standardize setup</li>
 <li>What cannot be done in a terminal is not worth doing: <b>Script everything</b></li>
 <li>Think ahead</li>
-</ul></section>
+</ul>
+</section>
             
           </div>
           <div class="presenter_notes">
@@ -876,7 +930,7 @@ Secrets are used to avoid checking passwords and similar into git</p>
             </aside>
             
             <aside class="page_number">
-              17/18
+              18/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -907,7 +961,7 @@ Secrets are used to avoid checking passwords and similar into git</p>
             </aside>
             
             <aside class="page_number">
-              18/18
+              19/19
             </aside>
             <aside class="logo">
               <img src="images/scienta_logo_94x47.png" align="right" valign="bottom"/>
@@ -991,44 +1045,50 @@ Secrets are used to avoid checking passwords and similar into git</p>
       
       
       <tr id="toc-row-12">
-        <th><a href="#slide12">Digital Ocean</a></th>
+        <th><a href="#slide12">Plantilla in docker</a></th>
         <td><a href="#slide12">12</a></td>
       </tr>
       
       
       <tr id="toc-row-13">
-        <th><a href="#slide13">Finishing touches on image</a></th>
+        <th><a href="#slide13">Digital Ocean</a></th>
         <td><a href="#slide13">13</a></td>
       </tr>
       
       
       <tr id="toc-row-14">
-        <th><a href="#slide14">Ansible</a></th>
+        <th><a href="#slide14">Finishing touches on image</a></th>
         <td><a href="#slide14">14</a></td>
       </tr>
       
       
       <tr id="toc-row-15">
-        <th><a href="#slide15">Ansible galaxy</a></th>
+        <th><a href="#slide15">Ansible</a></th>
         <td><a href="#slide15">15</a></td>
       </tr>
       
       
       <tr id="toc-row-16">
-        <th><a href="#slide16">Release and deploy</a></th>
+        <th><a href="#slide16">Ansible galaxy</a></th>
         <td><a href="#slide16">16</a></td>
       </tr>
       
       
       <tr id="toc-row-17">
-        <th><a href="#slide17">Recap</a></th>
+        <th><a href="#slide17">Release and deploy</a></th>
         <td><a href="#slide17">17</a></td>
       </tr>
       
       
       <tr id="toc-row-18">
-        <th><a href="#slide18">Questions?<!--img src="images/amedia_questions.jpg" width="800" align="center" style="float: top;" /--></a></th>
+        <th><a href="#slide18">Recap</a></th>
         <td><a href="#slide18">18</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-19">
+        <th><a href="#slide19">Questions?<!--img src="images/amedia_questions.jpg" width="800" align="center" style="float: top;" /--></a></th>
+        <td><a href="#slide19">19</a></td>
       </tr>
       
       
