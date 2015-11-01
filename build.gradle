@@ -125,7 +125,8 @@ uploadArchives {
 // /Release related
 
 // Task to translate gradle file to maven:
-task writeNewPom << {
+task writeNewPom {
+    description 'Creates a maven pom file from this gradle file. Notice that it will miss things like java-version, etc'
     pom {
         project {
             inceptionYear '2008'
